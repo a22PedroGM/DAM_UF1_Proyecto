@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PMDM_DAM_Proyecto</string>
+    <string name="title"> PONG </string>
+    <string name="play"> Play </string>
+    <string name="options">Settings</string>
+    <string name="save"> Save Game</string>
+    <string name="load"> Load Game</string>
+    <string name="exit"> Exit</string>
+</resources>

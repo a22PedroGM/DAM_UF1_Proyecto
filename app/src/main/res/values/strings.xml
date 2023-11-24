@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">PMDM_DAM_Proyecto</string>
+    <string name="title">PONG</string>
+    <string name="play">Jugar</string>
+    <string name="options"> Opciones</string>
+    <string name="save"> Guardar Partida</string>
+    <string name="load"> Cargar Partida</string>
+    <string name="exit">Salir</string>
+</resources>
