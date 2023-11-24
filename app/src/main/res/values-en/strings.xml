@@ -7,4 +7,9 @@
     <string name="save"> Save Game</string>
     <string name="load"> Load Game</string>
     <string name="exit"> Exit</string>
+    <string name="color_ball">Ball Color</string>
+    <string name="scores">Scores</string>
+    <string name="red">Red</string>
+    <string name="green">Green</string>
+    <string name="blue">Blue</string>
 </resources>
