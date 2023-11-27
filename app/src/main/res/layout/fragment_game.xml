@@ -8,42 +8,47 @@
 
     <!-- Pala del jugador 1 -->
 
+    <!-- Pala del jugador 2 -->
+
     <ImageView
         android:id="@+id/player1Paddle"
-        android:layout_width="wrap_content"
-        android:layout_height="100dp"
+        android:layout_width="78dp"
+        android:layout_height="75dp"
         android:src="@drawable/paddle_image"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
-        app:layout_constraintHorizontal_bias="0.043"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.498" />
 
-    <!-- Pala del jugador 2 -->
+    <!-- Pelota -->
     <ImageView
         android:id="@+id/player2Paddle"
-        android:layout_width="wrap_content"
-        android:layout_height="100dp"
+        android:layout_width="78dp"
+        android:layout_height="75dp"
         android:src="@drawable/paddle_image"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.956"
+        app:layout_constraintHorizontal_bias="0.984"
         app:layout_constraintStart_toEndOf="@+id/guideline"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.498" />
-    <!-- Pelota -->
+
+    <!-- Guía para dividir la pantalla en dos -->
+
     <ImageView
         android:id="@+id/ball"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="50dp"
+        android:layout_height="34dp"
         android:src="@drawable/ball_image"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.505" />
 
-    <!-- Guía para dividir la pantalla en dos para las palas -->
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
         android:layout_width="wrap_content"

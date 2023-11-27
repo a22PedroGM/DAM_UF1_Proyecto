@@ -10,16 +10,25 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
+        android:orientation="horizontal">
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/nav_host_fragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:name="com.example.pmdm_dam_proyecto.MainFragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
             app:navGraph="@navigation/navgraph"
             app:defaultNavHost="true"
             tools:layout="@layout/fragment_main" />
+
+        <!-- Agrega una Toolbar con el ID 'toolbar' -->
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:titleTextColor="@android:color/white">
+        </com.google.android.material.appbar.MaterialToolbar>
 
     </LinearLayout>
 
