@@ -23,12 +23,9 @@
         app:layout_constraintVertical_bias="0.103">
 
     </TextView>
+
+
     <!--Boton Jugar -->
-
-    <!--Boton Salir -->
-
-    <!--Boton Puntuación-->
-
     <Button
         android:id="@+id/btn_play"
         android:layout_width="150dp"
@@ -41,7 +38,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.334" />
-
+    <!--Boton Salir -->
     <Button
         android:id="@+id/btn_exit"
         android:layout_width="150dp"
@@ -56,7 +53,7 @@
         app:layout_constraintVertical_bias="0.758">
 
     </Button>
-
+    <!--Boton Puntuación-->
     <Button
         android:id="@+id/btn_scores"
         android:layout_width="150dp"

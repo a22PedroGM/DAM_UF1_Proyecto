@@ -17,17 +17,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         setSupportActionBar(findViewById(R.id.toolbar))
-
         navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
-
         val builderApp = AppBarConfiguration.Builder(navController.graph)
         val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
         builderApp.setOpenableLayout(drawerLayout)
         appBarConfiguration = builderApp.build()
-
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
     }
 

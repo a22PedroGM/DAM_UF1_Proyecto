@@ -34,7 +34,7 @@ class GameFragment : Fragment() {
         screenHeight = displayMetrics.heightPixels
         mediaPlayer = MediaPlayer.create(requireContext(),R.raw.illojuaneditao)
 
-        // Configuramos un OnClickListener para iniciar el movimiento de la pelota al tocar la pantalla
+       //Click listener bola
         rootView.setOnClickListener {
             if (!mediaPlayer.isPlaying) {
                 mediaPlayer.start()
@@ -45,7 +45,6 @@ class GameFragment : Fragment() {
     }
 
     private fun startBallMovement() {
-        // Iniciar la animación de la pelota
         val animatorX = ObjectAnimator.ofFloat(ball, View.TRANSLATION_X, 0f, screenWidth.toFloat() - ball.width)
         val animatorY = ObjectAnimator.ofFloat(ball, View.TRANSLATION_Y, 0f, screenHeight.toFloat() - ball.height)
 

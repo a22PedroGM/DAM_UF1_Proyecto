@@ -47,4 +47,7 @@ class MainFragment : Fragment() {
             .addToBackStack(null)
             .commit()
     }
+
+    private fun cambioColorBola(){
+    }
 }
