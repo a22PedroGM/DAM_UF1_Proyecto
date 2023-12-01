@@ -4,13 +4,18 @@ import android.media.MediaPlayer
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import com.example.pmdm_dam_proyecto.databinding.FragmentGameBinding
 import com.example.pmdm_dam_proyecto.databinding.FragmentMainBinding
 
 class MainFragment : Fragment() {
 
     private lateinit var binding: FragmentMainBinding
+    private lateinit var binding2: FragmentGameBinding
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var mediaPlayer2: MediaPlayer
 
@@ -19,7 +24,12 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMainBinding.inflate(inflater, container, false)
+        binding2 = FragmentGameBinding.inflate(inflater,container,false)
         return binding.root
+    }
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_main, menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,18 +46,35 @@ class MainFragment : Fragment() {
             salirDeLaAplicacion()
         }
     }
-
     private fun salirDeLaAplicacion() {
         requireActivity().finish()
     }
 
     private fun cambiarFragmento(fragment: Fragment) {
         requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.nav_host_fragment, fragment)
+            .replace(R.id.nav_host_fragment, fragment,"gameFragment")
             .addToBackStack(null)
             .commit()
     }
 
-    private fun cambioColorBola(){
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val gameFragment = requireActivity().supportFragmentManager.findFragmentByTag("gameFragment") as GameFragment?
+
+        when (item.itemId) {
+            R.id.action_red -> {
+                gameFragment?.cambiarBola(R.drawable.ball_image)
+                return true
+            }
+            R.id.action_blue -> {
+                gameFragment?.cambiarBola(R.drawable.ball_imageblue)
+                return true
+            }
+            R.id.action_green -> {
+                gameFragment?.cambiarBola(R.drawable.ball_imagegreen)
+                return true
+            }
+
+        return super.onOptionsItemSelected(item)
     }
+
 }

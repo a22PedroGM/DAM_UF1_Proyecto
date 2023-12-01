@@ -10,11 +10,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import com.example.pmdm_dam_proyecto.databinding.FragmentGameBinding
 import java.util.*
 
 class GameFragment : Fragment() {
     private lateinit var mediaPlayer: MediaPlayer
-
+    private lateinit var binding: FragmentGameBinding
     private lateinit var ball: ImageView
     private var ballSpeedX = 8f // Velocidad inicial en el eje X
     private var ballSpeedY = 8f // Velocidad inicial en el eje Y
@@ -72,5 +73,9 @@ class GameFragment : Fragment() {
 
         // Iniciar la animación de rebote con la nueva dirección
         startBallMovement()
+    }
+
+    fun cambiarBola(resource: Int){
+        binding.ball.setImageResource(resource)
     }
 }
