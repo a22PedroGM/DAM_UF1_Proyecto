@@ -24,9 +24,10 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMainBinding.inflate(inflater, container, false)
-        binding2 = FragmentGameBinding.inflate(inflater,container,false)
+        binding2 = FragmentGameBinding.inflate(inflater, container, false)
         return binding.root
     }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_main, menu)
         super.onCreateOptionsMenu(menu, inflater)
@@ -34,8 +35,8 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mediaPlayer = MediaPlayer.create(requireContext(),R.raw.sonidonico)
-        mediaPlayer2 = MediaPlayer.create(requireContext(),R.raw.sonidonico2)
+        mediaPlayer = MediaPlayer.create(requireContext(), R.raw.sonidonico)
+        mediaPlayer2 = MediaPlayer.create(requireContext(), R.raw.sonidonico2)
 
         binding.btnPlay.setOnClickListener {
             mediaPlayer.start()
@@ -46,13 +47,14 @@ class MainFragment : Fragment() {
             salirDeLaAplicacion()
         }
     }
+
     private fun salirDeLaAplicacion() {
         requireActivity().finish()
     }
 
     private fun cambiarFragmento(fragment: Fragment) {
         requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.nav_host_fragment, fragment,"gameFragment")
+            .replace(R.id.nav_host_fragment, fragment, "gameFragment")
             .addToBackStack(null)
             .commit()
     }
@@ -63,18 +65,23 @@ class MainFragment : Fragment() {
         when (item.itemId) {
             R.id.action_red -> {
                 gameFragment?.cambiarBola(R.drawable.ball_image)
+                requireActivity().supportFragmentManager.executePendingTransactions()
                 return true
             }
+
             R.id.action_blue -> {
                 gameFragment?.cambiarBola(R.drawable.ball_imageblue)
+                requireActivity().supportFragmentManager.executePendingTransactions()
                 return true
             }
+
             R.id.action_green -> {
                 gameFragment?.cambiarBola(R.drawable.ball_imagegreen)
+                requireActivity().supportFragmentManager.executePendingTransactions()
                 return true
             }
 
+        }
         return super.onOptionsItemSelected(item)
     }
-
 }

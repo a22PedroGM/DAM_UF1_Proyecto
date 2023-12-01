@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment
 import com.example.pmdm_dam_proyecto.databinding.FragmentGameBinding
 import java.util.*
 
-class GameFragment : Fragment() {
+class GameFragment : Fragment(),OnMenuClickListener {
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var binding: FragmentGameBinding
     private lateinit var ball: ImageView
@@ -25,24 +25,15 @@ class GameFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val rootView = inflater.inflate(R.layout.fragment_game, container, false)
-        ball = rootView.findViewById(R.id.ball)
+    ): View {
+        binding = FragmentGameBinding.inflate(inflater, container, false)
 
-        // Obtener dimensiones de la pantalla
-        val displayMetrics = resources.displayMetrics
-        screenWidth = displayMetrics.widthPixels
-        screenHeight = displayMetrics.heightPixels
-        mediaPlayer = MediaPlayer.create(requireContext(),R.raw.illojuaneditao)
-
-       //Click listener bola
-        rootView.setOnClickListener {
-            if (!mediaPlayer.isPlaying) {
-                mediaPlayer.start()
-                startBallMovement()
-            }
+        arguments?.let {
+            val imageResId = it.getInt("imageResId", R.drawable.ball_image)
+            cambiarBola(imageResId)
         }
-        return rootView
+
+        return binding.root
     }
 
     private fun startBallMovement() {
@@ -74,8 +65,15 @@ class GameFragment : Fragment() {
         // Iniciar la animación de rebote con la nueva dirección
         startBallMovement()
     }
-
     fun cambiarBola(resource: Int){
         binding.ball.setImageResource(resource)
+    }
+
+    override fun onMenuClick(id: Int) {
+        when (id) {
+            R.id.action_red -> cambiarBola(R.drawable.ball_image)
+            R.id.action_blue -> cambiarBola(R.drawable.ball_imageblue)
+            R.id.action_green -> cambiarBola(R.drawable.ball_imagegreen)
+        }
     }
 }
