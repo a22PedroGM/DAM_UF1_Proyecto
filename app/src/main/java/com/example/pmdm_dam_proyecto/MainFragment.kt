@@ -51,37 +51,10 @@ class MainFragment : Fragment() {
     private fun salirDeLaAplicacion() {
         requireActivity().finish()
     }
-
     private fun cambiarFragmento(fragment: Fragment) {
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.nav_host_fragment, fragment, "gameFragment")
             .addToBackStack(null)
             .commit()
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val gameFragment = requireActivity().supportFragmentManager.findFragmentByTag("gameFragment") as GameFragment?
-
-        when (item.itemId) {
-            R.id.action_red -> {
-                gameFragment?.cambiarBola(R.drawable.ball_image)
-                requireActivity().supportFragmentManager.executePendingTransactions()
-                return true
-            }
-
-            R.id.action_blue -> {
-                gameFragment?.cambiarBola(R.drawable.ball_imageblue)
-                requireActivity().supportFragmentManager.executePendingTransactions()
-                return true
-            }
-
-            R.id.action_green -> {
-                gameFragment?.cambiarBola(R.drawable.ball_imagegreen)
-                requireActivity().supportFragmentManager.executePendingTransactions()
-                return true
-            }
-
-        }
-        return super.onOptionsItemSelected(item)
     }
 }

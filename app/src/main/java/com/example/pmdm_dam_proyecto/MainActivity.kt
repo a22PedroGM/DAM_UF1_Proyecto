@@ -10,7 +10,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.navigation.NavigationView
 
-class MainActivity : AppCompatActivity(),OnMenuClickListener {
+class MainActivity : AppCompatActivity() {
     private lateinit var navHostFragment: NavHostFragment
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity(),OnMenuClickListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return NavigationUI.onNavDestinationSelected(item, navController) || super.onOptionsItemSelected(item)
     }
-    override fun onMenuClick(id: Int) {
+    private fun onMenuClick(id: Int) {
         when (id) {
             R.id.action_red -> navigateToGameFragment(R.drawable.ball_image)
             R.id.action_blue -> navigateToGameFragment(R.drawable.ball_imageblue)
