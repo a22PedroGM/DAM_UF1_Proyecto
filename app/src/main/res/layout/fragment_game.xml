@@ -11,8 +11,8 @@
 
     <ImageView
         android:id="@+id/player1Paddle"
-        android:layout_width="78dp"
-        android:layout_height="75dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:src="@drawable/paddle_image"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
@@ -24,8 +24,8 @@
     <!-- Pala del jugador 2 -->
     <ImageView
         android:id="@+id/player2Paddle"
-        android:layout_width="78dp"
-        android:layout_height="75dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:src="@drawable/paddle_image"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,8 +38,8 @@
 
     <ImageView
         android:id="@+id/ball"
-        android:layout_width="50dp"
-        android:layout_height="34dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:src="@drawable/ball_image"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

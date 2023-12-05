@@ -1,5 +1,6 @@
 package com.example.pmdm_dam_proyecto
 
+import android.annotation.SuppressLint
 import android.graphics.Rect
 import android.media.MediaPlayer
 import android.os.Bundle
@@ -21,8 +22,8 @@ class GameFragment : Fragment() {
     //Posicion de la pelota
     private var dY = 0f
     //Velocidad de la pelota
-    private var velocidadX = 5f
-    private var velocidadY = 5f
+    private var velocidadX = 0f
+    private var velocidadY = 0f
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,8 +42,10 @@ class GameFragment : Fragment() {
         binding.player2Paddle.setOnTouchListener { _, event -> handleTouch(event, binding.player2Paddle) }
 
         binding.root.setOnTouchListener{ _, event ->
-            if (event.action == MotionEvent.ACTION_DOWN) {
-                velocidadX = -velocidadX
+                if( velocidadY == 0f)
+                if (event.action == MotionEvent.ACTION_DOWN) {
+                    velocidadY = 15f
+                    velocidadX = 15f
             }
             true
         }
@@ -93,7 +96,6 @@ class GameFragment : Fragment() {
         binding.ball.getGlobalVisibleRect(rectBall)
         binding.player1Paddle.getGlobalVisibleRect(rectPaddle1)
         binding.player2Paddle.getGlobalVisibleRect(rectPaddle2)
-        binding.ball.getGlobalVisibleRect(rectBall)
 
         if (rectBall.top <= 0 || rectBall.bottom >= binding.root.height || rectBall.left <= 0 || rectBall.right >= binding.root.width || rectBall.intersect(rectPaddle1) || rectBall.intersect(rectPaddle2)) {
             velocidadX = -velocidadX
@@ -101,6 +103,11 @@ class GameFragment : Fragment() {
             mediaPlayer = MediaPlayer.create(requireContext(), R.raw.sonidonico2)
             mediaPlayer.start()
         }
+    }
+
+    private fun obtenerAleatoriedad(): Float {
+        val aleatorio = Random()
+        return aleatorio.nextFloat() * 1 - 6
     }
     private fun moverPelota() {
         binding.ball.x += velocidadX
