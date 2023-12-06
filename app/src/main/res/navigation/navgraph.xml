@@ -23,6 +23,9 @@
         <action
             android:id="@+id/action_gameFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_gameFragment_to_scoresFragment"
+            app:destination="@id/scoresFragment" />
     </fragment>
     <fragment
         android:id="@+id/scoresFragment"
