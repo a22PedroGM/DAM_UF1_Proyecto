@@ -41,7 +41,10 @@ class MainFragment : Fragment() {
             mediaPlayer.start()
             cambiarFragmento(GameFragment())
         }
-
+        binding.btnScores.setOnClickListener {
+            mediaPlayer2.start()
+            cambiarFragmento(ScoresFragment())
+        }
         binding.btnExit.setOnClickListener {
             salirDeLaAplicacion()
         }

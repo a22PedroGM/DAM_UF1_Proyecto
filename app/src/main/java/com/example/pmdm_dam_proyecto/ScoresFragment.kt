@@ -1,9 +1,7 @@
 package com.example.pmdm_dam_proyecto
 
 import android.app.AlertDialog
-import android.graphics.Color
 import android.os.Bundle
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,28 +15,44 @@ class ScoresFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        val puntuacionMasAlta = arguments?.getInt("puntuacionMasAlta", 0) ?: 0
-        añadirFila(puntuacionMasAlta)
+    ): View? {
         return inflater.inflate(R.layout.fragment_scores, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val puntuacionMasAlta = arguments?.getInt("puntuacionMasAlta", 0) ?: 0
+        if (puntuacionMasAlta != 0) {
+            añadirFila(puntuacionMasAlta)
+        }
     }
 
     private fun añadirFila(puntuacion: Int) {
         val tabla = view?.findViewById<TableLayout>(R.id.tableLayout)
-        val fila = TableRow(requireContext())
-        val nombre = EditText(requireContext())
-        val puntuacionTextView = TextView(requireContext())
 
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Nombre del ganador")
+
+        val puntuacionTextView = TextView(requireContext())
+        val nombre = TextView(requireContext())
+
         builder.setView(nombre)
         builder.setPositiveButton("OK") { _, _ ->
             puntuacionTextView.text = puntuacion.toString()
-            fila.addView(nombre)
+
+            val fila = TableRow(requireContext())
+            val nuevoNombre = TextView(requireContext())
+            nuevoNombre.text = nombre.text
+            nuevoNombre.setTextColor(resources.getColor(R.color.white))
+            fila.addView(nuevoNombre)
             fila.addView(puntuacionTextView)
+            if (nombre.parent != null) {
+                (nombre.parent as? ViewGroup)?.removeView(nombre)
+            }
             tabla?.addView(fila)
         }
         builder.show()
     }
 
 }
+

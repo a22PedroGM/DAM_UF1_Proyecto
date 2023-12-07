@@ -21,12 +21,12 @@
 
             <TableRow>
                 <TextView
-                    android:text="Nombre"
+                    android:text="@string/name"
                     android:gravity="center"
                     android:padding="8dp"
                     android:textColor="@android:color/white" />
                 <TextView
-                    android:text="Puntuación"
+                    android:text="@string/score"
                     android:gravity="center"
                     android:padding="8dp"
                     android:textColor="@android:color/white" />

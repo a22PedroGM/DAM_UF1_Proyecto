@@ -4,6 +4,7 @@ import android.graphics.Rect
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -12,25 +13,28 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
+import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import com.example.pmdm_dam_proyecto.databinding.FragmentGameBinding
-import com.example.pmdm_dam_proyecto.databinding.FragmentScoresBinding
-import kotlinx.coroutines.launch
+import com.example.pmdm_dam_proyecto.ScoresFragment
 import java.util.Locale
+import kotlin.system.exitProcess
 
 class GameFragment : Fragment() {
     //Variables de fragmento
     private lateinit var binding: FragmentGameBinding
-    private lateinit var binding2: FragmentScoresBinding
-    private lateinit var navController: NavController
+    private var navController:NavController? = null
     //Variables de juego
     private var dY = 0f //Posicion de las palas
     private var speedX = 0f
     private var speedY = 0f
     private var changeDiff = 0
+    var highScore: Int = 0
     private var maxSpeed = 25f
     //Variables de temporizador
+    private var isTimerRunning = false
     private var timer: CountDownTimer? = null
     private var gameDuration: Long = 10000 // 2 minutos
 
@@ -40,7 +44,6 @@ class GameFragment : Fragment() {
     ): View {
         (requireActivity() as MainActivity).desactivarMenuLateral()
         binding = FragmentGameBinding.inflate(inflater, container, false)
-        navController = (requireActivity() as MainActivity).navController
         arguments?.let {
             val imageResId = it.getInt("imageResId", R.drawable.ball_image)
             cambiarBola(imageResId)
@@ -63,15 +66,14 @@ class GameFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        navController = view.findNavController()
         binding.root.setOnTouchListener { _, event ->
             if (speedY == 0f)
                 if (event.action == MotionEvent.ACTION_DOWN) {
                     speedY = 10f
                     speedX = 10f
                 }
-            viewLifecycleOwner.lifecycleScope.launch {
                 iniciarTimer()
-            }
             true
         }
     }
@@ -117,13 +119,13 @@ class GameFragment : Fragment() {
         if (rectBall.right >= binding.root.width) {
             val score = requireActivity().findViewById<TextView>(R.id.player1Score)
             speedX = -speedX
-            score.setText((score.text.toString().toInt() + 1).toString())
+            score.text = (score.text.toString().toInt() + 1).toString()
             changeDiff++
         }
         if (rectBall.left <= 0) {
             val score = requireActivity().findViewById<TextView>(R.id.player2Score)
             speedX = -speedX
-            score.setText((score.text.toString().toInt() + 1).toString())
+            score.text = (score.text.toString().toInt() + 1).toString()
             changeDiff++
         }
         // Palas
@@ -151,17 +153,15 @@ class GameFragment : Fragment() {
         speedX = speedX.coerceAtMost(maxSpeed)
         changeDiff = 0
     }
-    private fun iniciarTimer(){
-        var isTimerRunning = false
-        if (!isTimerRunning){
+    private fun iniciarTimer() {
+        if (!isTimerRunning) {
             timer?.cancel()
-            timer = object : CountDownTimer(gameDuration,1000){
+            timer = object : CountDownTimer(gameDuration, 1000) {
                 override fun onTick(timeUntilEnd: Long) {
                     gameDuration = timeUntilEnd
                     actualizarTimer()
                 }
                 override fun onFinish() {
-                    val highScore:Int
                     val score1 = requireActivity().findViewById<TextView>(R.id.player1Score)
                     val score2 = requireActivity().findViewById<TextView>(R.id.player2Score)
                     if (score1.text.toString().toInt() > score2.text.toString().toInt()) {
@@ -169,22 +169,19 @@ class GameFragment : Fragment() {
                     } else {
                         highScore = score2.text.toString().toInt()
                     }
-                    view?.post {
-                        finJuego(highScore)
-                    }
+                    val bundle = bundleOf("puntuacionMasAlta" to highScore)
+                    navController?.navigate(R.id.scoresFragment, bundle)
                 }
             }.start()
             isTimerRunning = true
         }
     }
+
     private fun actualizarTimer(){
         val minutos = (gameDuration / 1000) / 60
         val segundos = (gameDuration / 1000) % 60
         val tiempo = String.format(Locale.getDefault(),"%02d:%02d", minutos, segundos)
         binding.timer.text = tiempo
     }
-    private fun finJuego(puntuacionMasAlta: Int) {
-        val bundle = bundleOf("puntuacionMasAlta" to puntuacionMasAlta)
-        navController.navigate(R.id.scoresFragment, bundle)
-    }
+
 }

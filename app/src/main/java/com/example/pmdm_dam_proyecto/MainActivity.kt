@@ -60,9 +60,12 @@ class MainActivity : AppCompatActivity() {
         }
         navController.navigate(R.id.gameFragment, bundle)
     }
+    private fun navigateToScoreFragment() {
+        navController.navigate(R.id.scoresFragment)
+    }
     override fun onResume() {
-        activarMenuLateral()
         super.onResume()
+        activarMenuLateral()
     }
     fun desactivarMenuLateral() {
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)

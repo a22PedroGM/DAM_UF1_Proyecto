@@ -11,4 +11,6 @@
     <string name="red">Rojo</string>
     <string name="green">Verde</string>
     <string name="blue">Azul</string>
+    <string name="name">Nombre</string>
+    <string name="score">Puntuación</string>
 </resources>
