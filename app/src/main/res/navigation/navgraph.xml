@@ -28,5 +28,9 @@
         android:id="@+id/scoresFragment"
         android:name="com.example.pmdm_dam_proyecto.ScoresFragment"
         android:label="fragment_scores"
-        tools:layout="@layout/fragment_scores" />
+        tools:layout="@layout/fragment_scores" >
+        <action
+            android:id="@+id/action_scoresFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
 </navigation>

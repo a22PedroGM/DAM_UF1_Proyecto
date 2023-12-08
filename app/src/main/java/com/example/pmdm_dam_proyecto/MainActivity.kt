@@ -15,6 +15,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var drawerLayout: DrawerLayout
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -60,19 +61,15 @@ class MainActivity : AppCompatActivity() {
         }
         navController.navigate(R.id.gameFragment, bundle)
     }
-    private fun navigateToScoreFragment() {
-        navController.navigate(R.id.scoresFragment)
-    }
     override fun onResume() {
-        super.onResume()
         activarMenuLateral()
+        super.onResume()
     }
     fun desactivarMenuLateral() {
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
     }
-
-    private fun activarMenuLateral() {
+    fun activarMenuLateral() {
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }

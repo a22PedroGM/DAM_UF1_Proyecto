@@ -169,19 +169,39 @@ class GameFragment : Fragment() {
                     } else {
                         highScore = score2.text.toString().toInt()
                     }
-                    val bundle = bundleOf("puntuacionMasAlta" to highScore)
-                    navController?.navigate(R.id.scoresFragment, bundle)
+                    navigateToScoresFragment()
                 }
             }.start()
             isTimerRunning = true
         }
     }
-
+    override fun onResume() {
+        resetGame()
+        super.onResume()
+    }
     private fun actualizarTimer(){
         val minutos = (gameDuration / 1000) / 60
         val segundos = (gameDuration / 1000) % 60
         val tiempo = String.format(Locale.getDefault(),"%02d:%02d", minutos, segundos)
         binding.timer.text = tiempo
+    }
+    private fun resetGame() {
+        val score1 = requireActivity().findViewById<TextView>(R.id.player1Score)
+        val score2 = requireActivity().findViewById<TextView>(R.id.player2Score)
+        score1.text = "0"
+        score2.text = "0"
+        speedX = 0f
+        speedY = 0f
+        changeDiff = 0
+        binding.ball.x = binding.root.width / 2f
+        binding.ball.y = binding.root.height / 2f
+        isTimerRunning = false
+        gameDuration = 10000
+        actualizarTimer()
+    }
+    private fun navigateToScoresFragment() {
+        val bundle = bundleOf("puntuacionMasAlta" to highScore)
+        navController?.navigate(R.id.scoresFragment, bundle)
     }
 
 }

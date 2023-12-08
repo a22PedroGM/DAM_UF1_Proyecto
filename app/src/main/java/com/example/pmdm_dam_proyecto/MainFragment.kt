@@ -8,6 +8,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.example.pmdm_dam_proyecto.databinding.FragmentGameBinding
 import com.example.pmdm_dam_proyecto.databinding.FragmentMainBinding
 
@@ -39,11 +40,11 @@ class MainFragment : Fragment() {
 
         binding.btnPlay.setOnClickListener {
             mediaPlayer.start()
-            cambiarFragmento(GameFragment())
+            findNavController().navigate(R.id.action_mainFragment_to_gameFragment)
         }
         binding.btnScores.setOnClickListener {
             mediaPlayer2.start()
-            cambiarFragmento(ScoresFragment())
+            findNavController().navigate(R.id.action_mainFragment_to_scoresFragment)
         }
         binding.btnExit.setOnClickListener {
             salirDeLaAplicacion()
@@ -52,11 +53,5 @@ class MainFragment : Fragment() {
 
     private fun salirDeLaAplicacion() {
         requireActivity().finish()
-    }
-    private fun cambiarFragmento(fragment: Fragment) {
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.nav_host_fragment, fragment, "gameFragment")
-            .addToBackStack(null)
-            .commit()
     }
 }
