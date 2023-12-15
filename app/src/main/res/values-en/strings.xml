@@ -14,4 +14,5 @@
     <string name="blue">Blue</string>
     <string name="name">Name</string>
     <string name="score">Score</string>
+    <string name="back">Back</string>
 </resources>

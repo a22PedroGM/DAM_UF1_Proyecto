@@ -20,6 +20,7 @@ import androidx.navigation.findNavController
 import com.example.pmdm_dam_proyecto.databinding.FragmentGameBinding
 import com.example.pmdm_dam_proyecto.ScoresFragment
 import java.util.Locale
+import kotlin.random.Random
 import kotlin.system.exitProcess
 
 class GameFragment : Fragment() {
@@ -36,7 +37,7 @@ class GameFragment : Fragment() {
     //Variables de temporizador
     private var isTimerRunning = false
     private var timer: CountDownTimer? = null
-    private var gameDuration: Long = 10000 // 2 minutos
+    private var gameDuration: Long = 30000 // 2 minutos
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,11 +55,11 @@ class GameFragment : Fragment() {
         binding.player1Paddle.setOnTouchListener { _, event -> handleTouch(event, binding.player1Paddle) }
         binding.player2Paddle.setOnTouchListener { _, event -> handleTouch(event, binding.player2Paddle) }
         val handler = Handler()
-        val delay: Long = 16
+        val delay: Long = 12
         handler.postDelayed(object : Runnable {
             override fun run() {
-                moverPelota()
                 ballCollider()
+                moverPelota()
                 handler.postDelayed(this, delay)
             }
         }, delay)
@@ -70,8 +71,8 @@ class GameFragment : Fragment() {
         binding.root.setOnTouchListener { _, event ->
             if (speedY == 0f)
                 if (event.action == MotionEvent.ACTION_DOWN) {
-                    speedY = 10f
-                    speedX = 10f
+                    speedY = 8f
+                    speedX = 8f
                 }
                 iniciarTimer()
             true
@@ -114,32 +115,49 @@ class GameFragment : Fragment() {
         // Borde superior y inferior
         if (rectBall.top <= 0 || rectBall.bottom >= binding.root.height) {
             speedY = -speedY
+            introduceVariacion()
         }
-        //Borde izquierdo y derecho
+        // Borde izquierdo y derecho
         if (rectBall.right >= binding.root.width) {
             val score = requireActivity().findViewById<TextView>(R.id.player1Score)
             speedX = -speedX
             score.text = (score.text.toString().toInt() + 1).toString()
             changeDiff++
+            introduceVariacion()
         }
         if (rectBall.left <= 0) {
             val score = requireActivity().findViewById<TextView>(R.id.player2Score)
             speedX = -speedX
             score.text = (score.text.toString().toInt() + 1).toString()
             changeDiff++
+            introduceVariacion()
         }
         // Palas
         if (rectBall.intersect(rectPaddle1) || rectBall.intersect(rectPaddle2)) {
             speedX = -speedX
             speedY = -speedY
+            if (rectBall.intersect(rectPaddle1)) {
+                binding.ball.x = rectPaddle1.right.toFloat() + 1
+            } else {
+                binding.ball.x = rectPaddle2.left.toFloat() - binding.ball.width - 1
+            }
+            introduceVariacion()
         }
-        //Aumento de dificultad
-        if (changeDiff == 10) {
+        // Aumento de dificultad
+        if (changeDiff == 3) {
             aumentarVelocidad()
         }
         binding.ball.x += speedX
         binding.ball.y += speedY
     }
+
+    private fun introduceVariacion() {
+        val random = Random
+        val variation = random.nextInt(3) - 1
+        speedX += variation
+        speedY += variation
+    }
+
 
     private fun moverPelota() {
         binding.ball.x += speedX
@@ -147,8 +165,8 @@ class GameFragment : Fragment() {
     }
 
     private fun aumentarVelocidad() {
-        speedX *= 1.25f
-        speedY *= 1.25f
+        speedX *= 1.20f
+        speedY *= 1.20f
         speedY = speedY.coerceAtMost(maxSpeed)
         speedX = speedX.coerceAtMost(maxSpeed)
         changeDiff = 0
@@ -196,7 +214,7 @@ class GameFragment : Fragment() {
         binding.ball.x = binding.root.width / 2f
         binding.ball.y = binding.root.height / 2f
         isTimerRunning = false
-        gameDuration = 10000
+        gameDuration = 30000
         actualizarTimer()
     }
     private fun navigateToScoresFragment() {

@@ -7,14 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.google.android.material.color.utilities.Score
+import androidx.navigation.fragment.findNavController
 
 class ScoresFragment : Fragment() {
-    private val FILAS_KEY = "punutacionMasAlta"
+    private val FILAS_KEY = "puntuacionMasAlta"
     private val filas = mutableListOf<String>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,8 +24,12 @@ class ScoresFragment : Fragment() {
         savedInstanceState?.let {
             filas.addAll(it.getStringArrayList(FILAS_KEY) ?: emptyList())
         }
+        val view = inflater.inflate(R.layout.fragment_scores, container, false)
         (requireActivity() as MainActivity).activarMenuLateral()
-        return inflater.inflate(R.layout.fragment_scores, container, false)
+        view?.findViewById<ImageButton>(R.id.btnAtras)?.setOnClickListener {
+            findNavController().navigate(R.id.action_scoresFragment_to_mainFragment)
+        }
+        return view
     }
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -61,12 +66,18 @@ class ScoresFragment : Fragment() {
                 (nombre.parent as? ViewGroup)?.removeView(nombre)
             }
             tabla?.addView(fila)
+            val mensaje = "Fila añadida correctamente para ${nuevoNombre.text}"
+            showToast(mensaje)
         }
         builder.show()
         val sharedPreferences = requireContext().getSharedPreferences("puntuaciones", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.putInt("puntuacionMasAlta", puntuacion)
         editor.apply()
+    }
+    private fun  showToast(mensaje: String) {
+        val toast = android.widget.Toast.makeText(requireContext(), mensaje, android.widget.Toast.LENGTH_SHORT)
+        toast.show()
     }
 
 }

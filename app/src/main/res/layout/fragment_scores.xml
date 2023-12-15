@@ -38,4 +38,14 @@
                 />
         </TableLayout>
     </ScrollView>
+
+    <ImageButton
+        android:id="@+id/btnAtras"
+        android:layout_width="73dp"
+        android:layout_height="56dp"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/back"
+        android:src="@android:drawable/ic_menu_revert" />
 </FrameLayout>
